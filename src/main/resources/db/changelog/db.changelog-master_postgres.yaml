@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: create auth db tables
+      author: alexandr
+      changes:
+        sqlFile:
+          encoding: utf8
+          path: db/changelog/sql/tables_postgres.sql
+          splitStatements: true
+          stripComments: true

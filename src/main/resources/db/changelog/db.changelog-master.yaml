@@ -1,0 +1,275 @@
+databaseChangeLog:
+  - changeSet:
+      id: create auth db tables
+      author: alexandr
+      changes:
+        #oauth_client_details
+        - createTable:
+            tableName: oauth_client_details
+            columns:
+              - column:
+                  name: client_id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  remarks: Идентификатор пользователя (имя, email, телефон)
+              - column:
+                  name: client_secret
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                  remarks: Пароль пользователя
+              - column:
+                  name: web_server_redirect_uri
+                  type: varchar(2048)
+                  defaultValue: null
+                  remarks: url пользователя где он хочет авторизоваться
+              - column:
+                  name: scope
+                  type: varchar(255)
+                  defaultValue: null
+              - column:
+                  name: access_token_validity
+                  type: int(11)
+                  defaultValue: null
+              - column:
+                  name: refresh_token_validity
+                  type: int(11)
+                  defaultValue: null
+              - column:
+                  name: resource_ids
+                  type: varchar(1024)
+                  defaultValue: null
+              - column:
+                  name: authorized_grant_types
+                  type: varchar(1024)
+                  defaultValue: null
+              - column:
+                  name: authorities
+                  type: varchar(1024)
+                  defaultValue: null
+              - column:
+                  name: additional_information
+                  type: varchar(4096)
+                  defaultValue: null
+              - column:
+                  name: autoapprove
+                  type: varchar(255)
+                  defaultValue: null
+        #permission
+        - createTable:
+            tableName: permission
+            columns:
+              - column:
+                  name: id
+                  type: int(11)
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  remarks: Permission id
+              - column:
+                  name: name
+                  type: varchar(512)
+                  defaultValue: null
+                  remarks: Permission name
+                  constraints:
+                    unique: true
+        #role
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: int(11)
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  defaultValue: null
+                  constraints:
+                    unique: true
+        #user
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  type: int(11)
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: varchar(1024)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(1024)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: tinyint(4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: accountNonExpired
+                  type: tinyint(4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: credentialsNonExpired
+                  type: tinyint(4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: accountNonLocked
+                  type: tinyint(4)
+                  constraints:
+                    nullable: false
+        #permission_role
+        - createTable:
+            tableName: permission_role
+            columns:
+              - column:
+                  name: permission_id
+                  type: int(11)
+                  defaultValue: null
+                  constraints:
+                    primaryKey: true
+                    foreignKeyName: permission_role_fk_1
+                    references: permission(id)
+              - column:
+                  name: role_id
+                  type: int(11)
+                  defaultValue: null
+                  constraints:
+                    primaryKey: true
+                    foreignKeyName: permission_role_fk_2
+                    references: role(id)
+        #role_user
+        - createTable:
+            tableName: role_user
+            columns:
+              - column:
+                  name: role_id
+                  type: int(11)
+                  defaultValue: null
+                  constraints:
+                    primaryKey: true
+                    foreignKeyName: role_user_fk_1
+                    references: role(id)
+              - column:
+                  name: user_id
+                  type: int(11)
+                  defaultValue: null
+                  constraints:
+                    primaryKey: true
+                    foreignKeyName: role_user_fk_2
+                    references: user(id)
+        #oauth_client_token
+        - createTable:
+            tableName: oauth_client_token
+            columns:
+              - column:
+                  name: token_id
+                  type: VARCHAR(256)
+              - column:
+                  name: token
+                  type: bytea
+              - column:
+                  name: authentication_id
+                  type: VARCHAR(256)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_name
+                  type: VARCHAR(256)
+              - column:
+                  name: client_id
+                  type: VARCHAR(256)
+        #oauth_access_token
+        - createTable:
+            tableName: oauth_access_token
+            columns:
+              - column:
+                  name: token_id
+                  type: VARCHAR(256)
+              - column:
+                  name: token
+                  type: bytea
+              - column:
+                  name: authentication_id
+                  type: VARCHAR(256)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_name
+                  type: VARCHAR(256)
+              - column:
+                  name: client_id
+                  type: VARCHAR(256)
+              - column:
+                  name: authentication
+                  type: bytea
+              - column:
+                  name: refresh_token
+                  type: VARCHAR(256)
+        #oauth_refresh_token
+        - createTable:
+            tableName: oauth_refresh_token
+            columns:
+              - column:
+                  name: token_id
+                  type: VARCHAR(256)
+              - column:
+                  name: token
+                  type: bytea
+              - column:
+                  name: authentication
+                  type: bytea
+        #oauth_code
+        - createTable:
+            tableName: oauth_code
+            columns:
+              - column:
+                  name: code
+                  type: VARCHAR(256)
+              - column:
+                  name: authentication
+                  type: bytea
+        #oauth_approvals
+        - createTable:
+            tableName: oauth_approvals
+            columns:
+              - column:
+                  name: userId
+                  type: VARCHAR(256)
+              - column:
+                  name: clientId
+                  type: VARCHAR(256)
+              - column:
+                  name: scope
+                  type: VARCHAR(256)
+              - column:
+                  name: status
+                  type: VARCHAR(10)
+              - column:
+                  name: expiresAt
+                  type: TIMESTAMP
+              - column:
+                  name: lastModifiedAt
+                  type: TIMESTAMP

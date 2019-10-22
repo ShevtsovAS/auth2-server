@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url:  jdbc:postgresql://localhost:5432/authDB
+    username: postgres
+    password: postgres
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master_postgres.yaml
+  #https://stackoverflow.com/questions/4588755/disabling-contextual-lob-creation-as-createclob-method-threw-error
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    generate-ddl: true
+    show-sql: true
