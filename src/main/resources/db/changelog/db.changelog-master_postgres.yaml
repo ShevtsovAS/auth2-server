@@ -5,6 +5,6 @@ databaseChangeLog:
       changes:
         sqlFile:
           encoding: utf8
-          path: db/changelog/sql/tables_postgres.sql
+          path: db/changelog/sql/schema.sql
           splitStatements: true
           stripComments: true
