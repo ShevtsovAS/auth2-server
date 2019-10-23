@@ -8,3 +8,12 @@ databaseChangeLog:
           path: db/changelog/sql/schema.sql
           splitStatements: true
           stripComments: true
+  - changeSet:
+      id: create oauth_approvals table
+      author: alexandr
+      changes:
+        sqlFile:
+          encoding: utf8
+          path: db/changelog/sql/up-01.sql
+          splitStatements: true
+          stripComments: true

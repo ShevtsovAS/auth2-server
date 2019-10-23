@@ -251,6 +251,11 @@ databaseChangeLog:
               - column:
                   name: authentication
                   type: bytea
+##### UP-01 #####
+  - changeSet:
+      id: create oauth_approvals table
+      author: alexandr
+      changes:
         #oauth_approvals
         - createTable:
             tableName: oauth_approvals
