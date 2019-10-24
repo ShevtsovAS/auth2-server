@@ -17,3 +17,12 @@ databaseChangeLog:
           path: db/changelog/sql/up-01.sql
           splitStatements: true
           stripComments: true
+  - changeSet:
+      id: insert some data
+      author: alexandr
+      changes:
+        sqlFile:
+          encoding: utf8
+          path: db/changelog/sql/data.sql
+          splitStatements: true
+          stripComments: true

@@ -278,3 +278,218 @@ databaseChangeLog:
               - column:
                   name: lastModifiedAt
                   type: TIMESTAMP
+  - changeSet:
+      id: insert some data
+      author: alexandr
+      changes:
+        - insert:
+            tableName: oauth_client_details
+            columns:
+              - column:
+                  name: client_id
+                  value: my-client-name
+              - column:
+                  name: client_secret
+                  value: $2a$12$5LfN/eRsULpXl.KXiPjAPusk0RQ6odoEuUrWDROX6MK3u6zJRyJje
+              - column:
+                  name: web_server_redirect_uri
+                  value: http://localhost:8080/code
+              - column:
+                  name: scope
+                  value: READ,WRITE
+              - column:
+                  name: access_token_validity
+                  value: 3600
+              - column:
+                  name: refresh_token_validity
+                  value: 10000
+              - column:
+                  name: resource_ids
+                  value: inventory,payment
+              - column:
+                  name: authorized_grant_types
+                  value: authorization_code,password,refresh_token,implicit
+              - column:
+                  name: additional_information
+                  value: {}
+        - insert:
+            tableName: permission
+            columns:
+              - column:
+                  name: name
+                  value: create_profile
+        - insert:
+            tableName: permission
+            columns:
+              - column:
+                  name: name
+                  value: read_profile
+        - insert:
+            tableName: permission
+            columns:
+              - column:
+                  name: name
+                  value: update_profile
+        - insert:
+            tableName: permission
+            columns:
+              - column:
+                  name: name
+                  value: delete_profile
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: ROLE_ADMIN
+        - insert:
+            tableName: role
+            columns:
+              - column:
+                  name: name
+                  value: ROLE_USER
+        - insert:
+            tableName: permission_role
+            columns:
+              - column:
+                  name: permission_id
+                  value: 1
+              - column:
+                  name: role_id
+                  value: 1
+        - insert:
+            tableName: permission_role
+            columns:
+              - column:
+                  name: permission_id
+                  value: 2
+              - column:
+                  name: role_id
+                  value: 1
+        - insert:
+            tableName: permission_role
+            columns:
+              - column:
+                  name: permission_id
+                  value: 3
+              - column:
+                  name: role_id
+                  value: 1
+        - insert:
+            tableName: permission_role
+            columns:
+              - column:
+                  name: permission_id
+                  value: 4
+              - column:
+                  name: role_id
+                  value: 1
+        - insert:
+            tableName: permission_role
+            columns:
+              - column:
+                  name: permission_id
+                  value: 2
+              - column:
+                  name: role_id
+                  value: 2
+        - insert:
+            tableName: permission_role
+            columns:
+              - column:
+                  name: permission_id
+                  value: 3
+              - column:
+                  name: role_id
+                  value: 2
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: password
+                  value: $2a$12$x4oRisMXAznLsRLlAD5KDerGpNpa0sH.hylIMl7QccguMbuUo4aDC
+              - column:
+                  name: email
+                  value: admin@example.com
+              - column:
+                  name: enabled
+                  value: 1
+              - column:
+                  name: accountNonExpired
+                  value: 1
+              - column:
+                  name: credentialsNonExpired
+                  value: 1
+              - column:
+                  name: accountNonLocked
+                  value: 1
+        - insert:
+            tableName: user
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: username
+                  value: user
+              - column:
+                  name: password
+                  value: $2a$12$az9mzaxZGlbJGfuUHZkej.aXMHrTBg/.zer0N6JgO2KnRHCTbS8zm
+              - column:
+                  name: email
+                  value: user@example.com
+              - column:
+                  name: enabled
+                  value: 1
+              - column:
+                  name: accountNonExpired
+                  value: 1
+              - column:
+                  name: credentialsNonExpired
+                  value: 1
+              - column:
+                  name: accountNonLocked
+                  value: 1
+        - insert:
+            tableName: role_user
+            columns:
+              - column:
+                  name: role_id
+                  value: 1
+              - column:
+                  name: user_id
+                  value: 1
+        - insert:
+            tableName: role_user
+            columns:
+              - column:
+                  name: role_id
+                  value: 2
+              - column:
+                  name: user_id
+                  value: 2
+      rollback:
+        - delete:
+            tableName: oauth_client_details
+            where: client_id = 'my-client-name'
+        - delete:
+            tableName: permission
+            where: name in ('create_profile', 'read_profile', 'update_profile', 'delete_profile')
+        - delete:
+            tableName: role
+            where: name in ('ROLE_ADMIN', 'ROLE_USER')
+        - delete:
+            tableName: permission_role
+            where: permission_id in ('1', '2', '3', '4')
+        - delete:
+            tableName: user
+            where: id in ('1', '2')
+        - delete:
+            tableName: role_user
+            where: role_id in ('1', '2')
