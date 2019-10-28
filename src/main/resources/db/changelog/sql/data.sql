@@ -31,7 +31,7 @@ insert into "user" (id, username, password, email, enabled, accountNonExpired, c
 VALUES ('1', 'admin', '$2a$12$x4oRisMXAznLsRLlAD5KDerGpNpa0sH.hylIMl7QccguMbuUo4aDC', 'admin@example.com', '1', '1', '1', '1');
 
 insert into "user" (id, username, password, email, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked)
-VALUES ('2', 'user', '$2a$12$az9mzaxZGlbJGfuUHZkej.aXMHrTBg/.zer0N6JgO2KnRHCTbS8zm', 'user@example.com', '1', '1', '1', '1');
+VALUES ('2', 'user', '{bcrypt}$2a$12$az9mzaxZGlbJGfuUHZkej.aXMHrTBg/.zer0N6JgO2KnRHCTbS8zm', 'user@example.com', '1', '1', '1', '1');
 
 INSERT INTO ROLE_USER (ROLE_ID, USER_ID)
 VALUES (1, 1),

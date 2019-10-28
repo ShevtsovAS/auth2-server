@@ -15,3 +15,9 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL94Dialect
     generate-ddl: true
     show-sql: true
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          web: debug

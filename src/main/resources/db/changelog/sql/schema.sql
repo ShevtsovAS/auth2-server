@@ -10,7 +10,7 @@ CREATE TABLE oauth_client_details
     authorized_grant_types  VARCHAR(1024),
     authorities             VARCHAR(1024),
     additional_information  VARCHAR(4096),
-    auto_approve            VARCHAR(255)
+    autoapprove            VARCHAR(255)
 );
 
 COMMENT ON COLUMN oauth_client_details.client_id IS 'Идентификатор пользователя (имя, email, телефон)';
