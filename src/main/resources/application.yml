@@ -5,13 +5,13 @@ spring:
     password: postgres
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master_postgres.yaml
-  #https://stackoverflow.com/questions/4588755/disabling-contextual-lob-creation-as-createclob-method-threw-error
   jpa:
     properties:
       hibernate:
         show_sql: true
         format_sql: true
         generate-ddl: true
+        #https://stackoverflow.com/questions/4588755/disabling-contextual-lob-creation-as-createclob-method-threw-error
         jdbc:
           lob:
             non_contextual_creation: true
